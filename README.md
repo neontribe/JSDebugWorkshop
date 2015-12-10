@@ -10,13 +10,17 @@ We'll cover different uses of the console, some of which will be of special inte
 
 As we progress we'll explore how to use the same features to interact with Javascript running in node, we'll uncover some different approaches to narrowing down your bug hunt using the profiling tools and we'll peer into the murky depths where memory leaks live.
 
-Depending on time and interest we may also find ourselves covering topics such as attaching debuggers to remote environments, post-mortem debugging, the use of HAR files in diagnosing problems in browser to server communications and specialised debugging tools for specific frameworks.
+Depending on time and interest we may also find ourselves covering topics such as attaching debuggers to remote environments, post-mortem debugging, the use of HAR files in diagnosing problems in browser to server communications and specialized debugging tools for specific frameworks.
+
+## Caveat
+
+We love Chromium and Firefox too, and much of what we'll discuss is applicable there too.
 
 ## Prerequisites
 To save valuable workshop time it'd be great if participants can ensure the machine they bring with them satisfies the following:
 
-* Google Chrome  version 47.x.x or better
-* Node v4.x.x or better and npm v3.5.x or better  
+* An up-to-date Google Chrome
+* A modern Node.js and npm  
 * A working command line environment
 * A comfortable text editor
 
