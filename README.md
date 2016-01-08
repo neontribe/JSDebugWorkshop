@@ -2,7 +2,7 @@
 Neontribe's Javascript Debugging Workshop - made for NorDevCon 2016
 
 ## Abstract
-At neontribe we've been learning Javascript for the last 10 years or so. In that time we've written a lot of bugs. We're pretty sure we haven't found them all yet.
+At Neontribe we've been learning Javascript for the last 10 years or so. In that time we've written a lot of bugs. We're pretty sure we haven't found them all yet.
 
 In this workshop we'll start with an overview of the portions of the Chrome Dev Tools which are particularly relevant to inspecting and debugging Javascript in the browser. If you've used the tools at all some of this material will be familiar so we'll try to uncover a few tricks along the way.
 
