@@ -75,12 +75,17 @@ input[type="checkbox"] {
 	top: -155px;
 	width: 100%;
 	font-size: 100px;
-	font-weight: 100;
+	font-weight: 300;
 	text-align: center;
-	color: rgba(175, 47, 47, 0.15);
+	color: #939598;
 	-webkit-text-rendering: optimizeLegibility;
 	-moz-text-rendering: optimizeLegibility;
 	text-rendering: optimizeLegibility;
+}
+
+.todoapp h1 span {
+	font-weight: 100;
+	color: #BF202F;
 }
 
 .new-todo,
