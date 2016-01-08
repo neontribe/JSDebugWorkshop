@@ -1,0 +1,23 @@
+{
+  "name": "jsdebugworkshop",
+  "version": "1.0.0",
+  "description": "Neontribe's Javascript Debugging Workshop - made for NorDevCon 2016",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neontribe/JSDebugWorkshop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/neontribe/JSDebugWorkshop/issues"
+  },
+  "homepage": "https://github.com/neontribe/JSDebugWorkshop#readme",
+  "todo": {
+    "port": 9898
+  }
+}
