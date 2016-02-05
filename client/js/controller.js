@@ -45,6 +45,7 @@
         });
 
         self.view.bind('clearSplash', window.noop || function(){});
+        self.view.bind('itemCreateBug', window.noop || function(){});
     }
 
     /**

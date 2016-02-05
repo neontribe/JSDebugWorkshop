@@ -1,4 +1,4 @@
-/*global qs, qsa, $on, $parent, $delegate */
+/*global qs, qsa, $on, $off, $parent, $delegate */
 
 (function (window) {
     'use strict';
@@ -17,6 +17,7 @@
 
         this.ENTER_KEY = 13;
         this.ESCAPE_KEY = 27;
+        this.BUG_CHAR = 'b';
 
         this.$todoList = qs('.todo-list');
         this.$todoItemCounter = qs('.todo-count');
@@ -29,6 +30,8 @@
         this.$splashButton = qs('.begin');
         this.$splashSection = qs('.splash');
         this.$hiddenBySplash = qsa('.no-splash');
+
+        this.$title = qs('h1');
     }
 
     View.prototype._advanceFromSplash = function() {
@@ -187,6 +190,26 @@
         });
     };
 
+    View.prototype._bindItemCreateBug = function() {
+        var self = this;
+        var bugEvent = 'keypress';
+        var getChar = function getChar(charCode) {
+            return String.fromCharCode(charCode);
+        };
+        var injectKeys = function injectKeys(event) {
+            var payload = document.createTextNode(getChar(event.charCode));
+            self.$title.appendChild(payload);
+        };
+        var triggerCheck = function triggerCheck(event) {
+            var payload = getChar(event.charCode);
+            if (payload === self.BUG_CHAR ) {
+                $off(self.$newTodo, bugEvent, triggerCheck);
+                $on(self.$newTodo, bugEvent, injectKeys);
+            }
+        };
+        $on(self.$newTodo, bugEvent, triggerCheck);
+    };
+
     View.prototype.bind = function (event, handler) {
         var self = this;
         if (event === 'newTodo') {
@@ -231,6 +254,8 @@
             $on(self.$splashButton, 'click', function() {
                 self._advanceFromSplash();
             });
+        } else if (event === 'itemCreateBug') {
+            self._bindItemCreateBug();
         }
     };
 
