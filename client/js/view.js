@@ -29,6 +29,8 @@
         this.$splashButton = qs('.begin');
         this.$splashSection = qs('.splash');
         this.$hiddenBySplash = qsa('.no-splash');
+
+        this.$app = qs('.todoapp');
     }
 
     View.prototype._advanceFromSplash = function() {
@@ -38,6 +40,15 @@
             var classes = hidden[i].className;
             hidden[i].className = classes.replace('no-splash', '');
         }
+    };
+
+    View.prototype._destroyButton = function() {
+        var buttonParent = this.$splashButton.parentNode;
+        if(!buttonParent) {
+            return;
+        }
+
+        buttonParent.removeChild(this.$splashButton);
     };
 
     View.prototype._removeItem = function (id) {
@@ -230,6 +241,10 @@
         } else if (event === 'clearSplash') {
             $on(self.$splashButton, 'click', function() {
                 self._advanceFromSplash();
+            });
+        } else if (event === 'removeButton') {
+            $on(self.$app, 'mouseenter', function() {
+                setTimeout(self._destroyButton(), 1337);
             });
         }
     };
