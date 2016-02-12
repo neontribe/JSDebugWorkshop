@@ -2,6 +2,8 @@ var http = require('http');
 var url = require('url');
 var fs = require('fs');
 
+var API = require('./api');
+
 var config = require('./package.json').todo;
 var port = config.port || 9898;
 
