@@ -45,6 +45,8 @@
         });
 
         self.view.bind('clearSplash', window.noop || function(){});
+
+        self.view.bind('listenForResize', window.noop || function(){});
     }
 
     /**
