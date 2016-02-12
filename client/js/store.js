@@ -17,7 +17,16 @@
 
 		if (!localStorage[name]) {
 			var data = {
-				todos: []
+				todos: [
+				{title: "A", completed: false, id: 1},
+				{title: "B", completed: false, id: 2},
+				{title: "C", completed: true, id: 3},
+				{title: "D", completed: false, id: 4},
+				{title: "E", completed: false, id: 5},
+				{title: "F", completed: true, id: 6},
+				{title: "G", completed: true, id: 7},
+				{title: "H", completed: false, id: 8},
+				]
 			};
 
 			localStorage[name] = JSON.stringify(data);
@@ -63,7 +72,7 @@
 	 */
 	Store.prototype.findAll = function (callback) {
 		callback = callback || function () {};
-		callback.call(this, JSON.parse(localStorage[this._dbName]).todos);
+		callback.call(this, this.order(JSON.parse(localStorage[this._dbName]).todos));
 	};
 
 	/**
@@ -101,6 +110,21 @@
 			localStorage[this._dbName] = JSON.stringify(data);
 			callback.call(this, [updateData]);
 		}
+	};
+
+	/**
+	 * Will take a store array containing a list of todos 
+	 * and definitely sort them correctly to put incomplete todos first
+	 *
+	 * @param {array} Todo array to sort 
+	 * @return {array} Correctly sorted todos 
+	 */
+	Store.prototype.order = function(data) {
+		data.sort(function(a, b) {
+			return !a.completed ^ b.completed;
+		});
+		// console.log(data.todos.map(f => f.title));
+		return data;
 	};
 
 	/**

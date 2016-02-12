@@ -8,9 +8,8 @@
      * @param {string} name The name of your new to do list.
      */
     function Todo(name) {
-        this.storage = new app.Store(name);
-        // clear away localStorage values (unhelpful for this debugging workshop)
-        this.storage.drop(window.noop || function(){});
+        //cache buster
+        this.storage = new app.Store(name + Date.now());
         this.model = new app.Model(this.storage);
         this.template = new app.Template();
         this.view = new app.View(this.template);
