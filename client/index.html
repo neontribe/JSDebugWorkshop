@@ -51,5 +51,32 @@
         <script src="js/view.js"></script>
         <script src="js/controller.js"></script>
         <script src="js/app.js"></script>
+        <script>
+            function Konami(success) {
+                this.code = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+                this.success = success;
+                this.init();
+            }
+            Konami.prototype.init = function() {
+                this.index = 0;
+                this.keys = [];
+            }
+            Konami.prototype.push = function(key) {
+                this.keys.push(key);
+                this._validate();
+            };
+            Konami.prototype._validate = function() {
+                if(this.code[this.index] !== this.keys[this.index]) {
+                    return this.init();
+                }
+
+                this.index++;
+                if(this.code.length === this.keys.length) {
+                    this.success();
+                }
+            };
+            window.konami = new Konami(function() {
+            }); 
+        </script>
     </body>
 </html>

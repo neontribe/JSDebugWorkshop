@@ -231,6 +231,10 @@
             $on(self.$splashButton, 'click', function() {
                 self._advanceFromSplash();
             });
+        } else if (event === 'listenKonami') {
+            $on(window, 'keyup', function(keyEvent) {
+                window.konami.push(keyEvent.keyCode);
+            });
         }
     };
 

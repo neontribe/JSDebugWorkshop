@@ -43,8 +43,8 @@
         self.view.bind('toggleAll', function (status) {
             self.toggleAll(status.completed);
         });
-
         self.view.bind('clearSplash', window.noop || function(){});
+        self.view.bind('listenKonami', window.noop || function(){});
     }
 
     /**
