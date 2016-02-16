@@ -27,3 +27,7 @@ To save valuable workshop time it'd be great if participants can ensure the mach
   *If you're new to node we'd recommend managing your node and npm versions with [nvm](https://github.com/creationix/nvm)*
 
 It'd be super excellent to git clone this repo, enter the resulting directory, and run `npm install` before the workshop while you're on a decent internet connection.
+
+## Slides
+
+[http://neontribe.github.io/JSDebugWorkshop](http://neontribe.github.io/JSDebugWorkshop)
