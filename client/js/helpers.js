@@ -2,6 +2,18 @@
 (function (window) {
     'use strict';
 
+    window.shallowExtend = function shallowExtend(a, b) {
+        if (arguments.length < 3) {
+            return Object.keys(b || {}).reduce(function(current, key) {
+                if (typeof b[key] !== 'undefined') {
+                    current[key] = b[key];
+                }
+                return current;
+            }, a || {});
+        }
+        return shallowExtend.call(this, a, shallowExtend.apply(this, [].slice.call(arguments, 1)));
+    };
+
     // Get element(s) by CSS selector:
     window.qs = function (selector, scope) {
         return (scope || document).querySelector(selector);
@@ -51,7 +63,60 @@
     };
 
     window.noop = function noop(){};
+
     // Allow for looping on nodes by chaining:
     // qsa('.foo').forEach(function () {})
     NodeList.prototype.forEach = Array.prototype.forEach;
+
+    window.ajax = function ajax(url, callback, settingsOverrides) {
+        var settings = window.shallowExtend({
+            method: 'GET',
+            data: '',
+            type: 'form',
+            callback: window.noop
+        }, settingsOverrides, {callback: callback, url: url});
+
+        var xhr = new XMLHttpRequest();
+        var body;
+
+        xhr.open(settings.method.toUpperCase(), settings.url);
+
+        switch(settings.type) {
+            case 'json':
+                xhr.setRequestHeader('Content-Type', 'application/json');
+                body = JSON.stringify(settings.data);
+            break;
+            case 'form':
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                if (settings.data && typeof settings.data === 'object') {
+                    body = Object.keys(settings.data).map(function(key) {
+                        return encodeURIComponent(key) + '=' + encodeURIComponent(settings.data[key]);
+                    }).join('&');
+                }
+            break;
+        }
+
+        xhr.addEventListener('load', function() {
+            var dat = this.getResponseHeader('Content-Type');
+            var conveter;
+            switch(dat) {
+                case 'application/json':
+                    conveter = function conveter(response) {
+                        return JSON.parse(response);
+                    };
+                break;
+                default:
+                    conveter = function conveter(response) {
+                        return response;
+                    };
+            }
+
+            if (this.status > 299) {
+                return settings.callback.call(xhr, conveter(this.response));
+            }
+            return settings.callback.call(xhr, null, conveter(this.response));
+        });
+
+        xhr.send(body);
+    };
 })(window);

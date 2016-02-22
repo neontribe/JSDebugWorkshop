@@ -32,7 +32,7 @@ function extractBody(req, cb) {
 }
 
 function processBody(req, cb) {
-	var ct = req.headers['content-type'];
+	var ct = req.headers['content-type'] && req.headers['content-type'].split(';')[0];
 
 	function done(err, body) {
 		cb(err, body);
@@ -49,6 +49,7 @@ function processBody(req, cb) {
 }
 
 function API(dbPath) {
+	// only 1 store per dbPath atm...
 	this.todos = new Store(dbPath, 'todos');
 
 	this.hook = this.hook.bind(this);
@@ -75,25 +76,44 @@ API.prototype.respond = function respond(res, str, statusOverride, headerOverrid
 		'Content-Length': Buffer.byteLength(str || '')
 	}, headerOverrides);
 	var status = statusOverride || 200;
+	if (status > 399) {
+		res.writeHead(status, 'error', headers);
+	} else {
+		res.writeHead(status, 'success', headers);
+	}
 
-	res.writeHead(status, 'success', headers);
 	res.end(str);
 };
 
 API.prototype.hook = function hook(op, req, res) {
-	var cmds = op.split('/');
+	var cmds = op.replace(/^\//, '').split('/');
 	var id = cmds[0];
-	var type = req.method.toLowerCase();
 	var respondWithJSON = this.respondWithJSON.bind(this);
 	var respondWithError = this.respondWithError.bind(this);
 	var todos = this.todos;
+	var type = req.method.toLowerCase();
 
 	switch(type) {
+		case 'post':
+			// search
+			processBody(req, function(err, data) {
+				if (err) {
+					console.error(err);
+					return respondWithError(res, err);
+				}
+				todos.find(data, function(error, found) {
+					if (error) {
+						console.error(error);
+						return respondWithError(res, error, 500);
+					}
+					respondWithJSON(res, found);
+				});
+			});
+		break;
 		case 'get':
 			if (id) {
 				todos.findOne(id, function(err, data) {
 					if (err) {
-						console.error(err);
 						return respondWithError(res, err, 404);
 					}
 					respondWithJSON(res, data);
@@ -124,7 +144,7 @@ API.prototype.hook = function hook(op, req, res) {
 			});
 		break;
 		case 'patch':
-			if (id) {
+			if (!id) {
 				respondWithError(res, 'missing id data from url fragment');
 			} else {
 				todos.findOne(id, function(err, record) {
@@ -150,9 +170,15 @@ API.prototype.hook = function hook(op, req, res) {
 		break;
 		case 'delete':
 			if (id) {
-				respondWithError(res, 'missing id data from url fragment');
-			} else {
 				todos.remove(id, function(err, record) {
+					if (err) {
+						console.error(err);
+						return respondWithError(res, err);
+					}
+					respondWithJSON(res, record);
+				});
+			} else {
+				todos.removeAll(function(err, record) {
 					if (err) {
 						console.error(err);
 						return respondWithError(res, err);
@@ -161,6 +187,8 @@ API.prototype.hook = function hook(op, req, res) {
 				});
 			}
 		break;
+		default:
+			respondWithError(res, 'not found', 404);
 	}
 };
 

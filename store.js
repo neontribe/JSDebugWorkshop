@@ -117,7 +117,7 @@ Store.prototype.find = function find(query, callback) {
 		var table = this._getTable();
 		cb.call(this, null, clone(table.filter(function(row) {
 			return Object.keys(query).every(function(key) {
-				return row[key] === query[row];
+				return row[key] == query[key]; // jshint ignore: line
 			});
 		})));
 	} else {
@@ -134,7 +134,7 @@ Store.prototype.findOne = function findOne(id, callback) {
 		if (found[0]) {
 			cb.call(this, null, found[0]);
 		} else {
-			cb.call(this, new Error(''));
+			cb.call(this, new Error('Cannot find record: ' + id));
 		}
 	});
 };
@@ -153,9 +153,9 @@ Store.prototype._insert = function _insert(record, callback) {
 Store.prototype.insert = function insert(record, callback) {
 	var cb = cbSafe(callback);
 	var cloned = clone(record);
-	cloned.id = Date.now();
+	cloned.id = Date.now().toString();
 
-	this._insert(record, cb);
+	this._insert(cloned, cb);
 };
 
 Store.prototype.remove = function remove(id, callback) {
@@ -165,9 +165,19 @@ Store.prototype.remove = function remove(id, callback) {
 			return cb.call(this, err);
 		}
 		var table = this._getTable();
-		var i = table.indexOf(found);
-		table[i] = null;
+		this._store[this._name] = table.filter(function(record) {
+			return record.id != id; // jshint ignore: line
+		});
 		cb.call(this, null, found);
+	});
+};
+
+Store.prototype.removeAll = function removeAll(callback) {
+	var cb = cbSafe(callback);
+	var findAll = this.findAll.bind(this);
+	this._store[this._name] = [];
+	this.save(function() {
+		findAll(cb);
 	});
 };
 
@@ -179,7 +189,7 @@ Store.prototype.update = function update(id, newData, callback) {
 		}
 		var cloned = clone(newData);
 		cloned.id = id;
-		this._insert(cloned);
+		this._insert(cloned, cb);
 	});
 };
 

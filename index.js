@@ -51,6 +51,9 @@ var server = http.createServer(function(req, res) {
 	if (path.startsWith('/api')) {
 		return api.hook(path.replace(/^\/api/, ''), req, res);
 	}
+
+	res.writeHead(404, 'not found');
+	res.end();
 });
 
 server.listen(port, function() {
