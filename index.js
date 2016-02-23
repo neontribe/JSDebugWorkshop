@@ -16,7 +16,8 @@ var staticFiles = {
 	'/js/app.js'		: fs.readFileSync('./client/js/app.js'),
 	'/res/index.css'	: fs.readFileSync('./client/res/index.css'),
 	'/res/base.js'		: fs.readFileSync('./client/res/base.js'),
-	'/res/base.css'		: fs.readFileSync('./client/res/base.css')
+	'/res/base.css'		: fs.readFileSync('./client/res/base.css'),
+	'/res/bug.png'		: fs.readFileSync('./client/res/bug.png'),
 };
 var validStatic = Object.keys(staticFiles);
 
@@ -25,7 +26,8 @@ function closeWithStatic(path, res) {
 	var type = {
 		'html': 'text/html',
 		'js': 'application/x-javascript',
-		'css': 'text/css'
+		'css': 'text/css',
+		'png': 'image/png'
 	}[path.split('.').pop()];
 
 	res.writeHead(200, {

@@ -26,6 +26,14 @@ body {
     background-color: #A60716;
 }
 
+.konami {
+    position: absolute;
+    bottom: 10px;
+    padding: 0.5rem;
+    background-color: #FFF5B5;
+    font-size: 2rem;
+}
+
 .destroy, .clear-completed {
     margin: 0;
     padding: 0;
