@@ -40,14 +40,33 @@
 				<section>
 					<h1>The Console</h1>
 					<p>Without this we are nothing</p>
+					<div class="fragment">
+						<p>Follow along at:</p>
+						<strong>http://neontribe.github.io/JSDebugWorkshop</strong>
+					</div>
 				</section>
 
 				<section>
+					<section>
+						<h2>The Console API</h2>
+						<p>A collection of methods provided to web applications</p>
+						<p class="fragment">Which means you can, if you want, drop them into your own code</p>
+						<p class="fragment">What follows are just some highlights from <a href="https://developer.chrome.com/devtools/docs/console-api">the docs</a></p>
+					</section>
 					<section data-state="runme">
 						<h2>console.log() and friends</h2>
 						<pre>
 							<code class="hljs" data-trim>
 console.log('hello world');
+							</code>
+						</pre>
+					</section>
+					<section data-state="runme">
+						<h2>multiple arguments</h2>
+						<pre>
+							<code class="hljs" data-trim>
+var ragbag = ['All', 'manner', ['of'], {stuff: '!'}];
+console.log.apply(console, ragbag);
 							</code>
 						</pre>
 					</section>
@@ -61,11 +80,13 @@ console.log('hello %s', home.toUpperCase());
 						</pre>
 					</section>
 					<section data-state="runme">
-						<h2>multiple arguments</h2>
+						<h2>OMG substitutions</h2>
+						<p>You can format expandable items into your string...</p>
 						<pre>
 							<code class="hljs" data-trim>
-var ragbag = ['All', 'manner', ['of'], {stuff: '!'}];
-console.log.apply(console, ragbag);
+var element = document.querySelector('section');
+var object = {expandable: 'me'};
+console.log('Elements %o and Objects %O', element, object);
 							</code>
 						</pre>
 					</section>
@@ -91,6 +112,27 @@ traceMe();
 								</code>
 							</pre>
 						</p>
+					</section>
+					<section data-state="runme">
+						<h2>Conditional traces with console.assert</h2>
+							<pre>
+								<code class="hljs" data-trim>
+var list = document.querySelectorAll('section');
+console.assert(list.length > 100, "Surely more than 100 sections?");
+								</code>
+							</pre>
+					</section>
+					<section data-state="runme">
+						<h2>Start a debug session</h2>
+						<pre>
+							<code class="hljs" data-trim>
+function debugMe () {
+	debugger
+}
+debugMe();
+							</code>
+						</pre>
+						<p class="fragment">More about the debugger later...</p>
 					</section>
 					<section data-state="runme">
 						<h2>Tabulating Data</h2>
@@ -121,8 +163,10 @@ setTimeout(function(){
 
 				<section>
 					<section>
-						<h1>$*</h1>
-
+						<h1>The Command Line API</h1>
+						<p>Convenience functions for common developer tasks</p>
+						<p class="fragment">Only available from within the console itself</p>
+						<p class="fragment">Highlights from <a href="https://developer.chrome.com/devtools/docs/commandline-api">the docs</a></p>
 					</section>
 					<section>
 						<h2>$0-4</h2>
@@ -138,14 +182,14 @@ setTimeout(function(){
 						<div class="fragment">
 							<pre>
 								<code class="hljs" data-trim>
-$('section'); // Returns the first section element in the document
+$('section'); // Returns THE FIRST section element in the document
 								</code>
 							</pre>
 						</div>
 						<div class="fragment">
 							<pre>
 								<code class="hljs" data-trim>
-$$('code'); // Returns all the code elements in the document
+$$('code'); // Returns ALL the code elements in the document
 								</code>
 							</pre>
 						</div>
@@ -156,16 +200,55 @@ $x('html/body/script'); // XPATH!!
 								</code>
 							</pre>
 						</div>
-
 					</section>
-					<section data-state="runme">
+					<section>
 						<h2>$_</h2>
 						<p>Access the value of the last executed expression</p>
 						<em class="fragment">Mostly for when you forgot to assign it to a variable...</em>
 					</section>
+					<section>
+						<h2>copy()</h2>
+						<p>Copies a string representation to your clipboard</p>
+						<p class="fragment"><em>Copying DOM elements gets you HTML</em></p>
+						<p class="fragment"><em>Copying Objects gets you JSON</em></p>
+					</section>
+					<section>
+						<h2>inspect(el)</h2>
+						<p>Displays an element in the elements panel, try:</p>
+						<pre>
+							<code class="hljs" data-trim>
+inspect($('body section:first-of-type'));
+							</code>
+						</pre>
+						<p class="fragment"><em>You can use it on heap object or functions too!</em></p>
+					</section>
+					<section>
+						<h2>debug(function)</h2>
+						<p>Invokes the debugger when the function supplied is called</p>
+					</section>
+					<section>
+						<h2>monitor(function)</h2>
+						<p>Logs function arguments on call, try the following:</p>
+						<pre>
+							<code class="hljs" data-trim>
+monitor(ragbag.noop);
+ragbag.noop('this', 'that', 'the other');
+							</code>
+						</pre>
+						<p class="fragment"><em>Customers who bought monitor() also bought unmonitor()</em></p>
+					</section>
+					<section>
+						<h2>monitorEvents(object[, events])</h2>
+						<p>Logs events on an object (normally a DOM element)</p>
+						<pre>
+							<code class="hljs" data-trim>
+monitorEvents(window.document.body, 'contextmenu');
+							</code>
+						</pre>
+						<p class="fragment"><em>Customers who bought monitorEvents() also bought unmonitorEvents()</em></p>
+					</section>
 				</section>
 			</div>
-
 		</div>
 
 		<script src="lib/js/head.min.js"></script>
@@ -209,6 +292,10 @@ $x('html/body/script'); // XPATH!!
 					console.clear();
 				}
 			}, false );
+
+			window.ragbag = {
+				noop: function(){}
+			}
 		</script>
 	</body>
 </html>
