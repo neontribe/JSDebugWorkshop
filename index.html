@@ -56,108 +56,89 @@
 					</section>
 					<section data-state="runme">
 						<h2>console.log() and friends</h2>
-						<pre>
-							<code class="hljs" data-trim>
-console.log('hello, world'); // The comma's there for Frank
-							</code>
-						</pre>
+<pre><code class="hljs javascript" data-trim>
+console.log('hello, world');
+// The comma's there for Frank
+</code></pre>
 					</section>
 					<section data-state="runme">
 						<h2>multiple arguments</h2>
-						<pre>
-							<code class="hljs" data-trim>
+<pre><code class="hljs javascript" data-trim>
 var ragbag = ['All', 'manner', ['of'], {stuff: '!'}];
 console.log.apply(console, ragbag);
-							</code>
-						</pre>
+</code></pre>
 					</section>
 					<section data-state="runme">
 						<h2>substitutions</h2>
-						<pre>
-							<code class="hljs" data-trim>
+<pre><code class="hljs javascript" data-trim>
 var home = 'norwich';
 console.log('hello %s', home.toUpperCase());
-							</code>
-						</pre>
+</code></pre>
 					</section>
 					<section data-state="runme">
 						<h2>OMG substitutions</h2>
 						<p>You can format expandable items into your string...</p>
-						<pre>
-							<code class="hljs" data-trim>
+<pre><code class="hljs javascript" data-trim>
 var element = document.querySelector('section');
 var object = {expandable: 'me'};
 console.log('Elements %o and Objects %O', element, object);
-							</code>
-						</pre>
+</code></pre>
 					</section>
 					<section data-state="runme">
 						<h2>Alarms!</h2>
-						<pre>
-							<code class="hljs" data-trim>
+<pre><code class="hljs javascript" data-trim>
 console.warn("You'll ignore this");
 console.error("But maybe not this");
-							</code>
-						</pre>
+</code></pre>
 						<p class="fragment">console.error() comes with a free stack trace!</p>
 					</section>
 					<section data-state="runme">
 						<h2>Stack trace, you say?</h2>
 						<p>If you want one of your own you can use:</p>
-							<pre>
-								<code class="hljs" data-trim>
+<pre><code class="hljs javascript" data-trim>
 function traceMe () {
 	console.trace("My first voluntary stack trace");
 }
 traceMe();
-								</code>
-							</pre>
+</code></pre>
 						</p>
 					</section>
 					<section data-state="runme">
 						<h2>Conditional traces with console.assert</h2>
-							<pre>
-								<code class="hljs" data-trim>
+<pre><code class="hljs javascript" data-trim>
 var list = document.querySelectorAll('section');
-console.assert(list.length > 100, "Surely more than 100 sections?");
-								</code>
-							</pre>
+console.assert(list.length < 40, "Surely too many sections?");
+</code></pre>
 					</section>
 					<section data-state="runme">
 						<h2>Start a debug session</h2>
-						<pre>
-							<code class="hljs" data-trim>
+<pre><code class="hljs javascript" data-trim>
 function debugMe () {
-	debugger
+	debugger;
 }
 debugMe();
-							</code>
-						</pre>
+</code></pre>
 						<p class="fragment">More about the debugger later...</p>
 					</section>
 					<section data-state="runme">
 						<h2>Tabulating Data</h2>
-						<pre>
-							<code class="hljs" data-trim>
+<pre><code class="hljs javascript" data-trim>
 var items = [
 	{type: 'foo', value: 'baz'},
 	{type: 'bar', value: 1},
 	{type: 'foo', value: null}
 ];
 console.table(items);
-							</code>
-						</pre>
+</code></pre>
 					</section>
 					<section data-state="runme">
 						<h2>Timings</h2>
-						<pre>
-							<code class="hljs" data-trim>
+<pre><code class="hljs javascript" data-trim>
 console.time('My Timer');
 setTimeout(function(){
 	console.timeEnd('My Timer');
 }, 1500);
-							</code>
-						</pre>
+</code></pre>
 					</section>
 				</section>
 
@@ -171,7 +152,6 @@ setTimeout(function(){
 					</section>
 					<section>
 						<h2>$0-4</h2>
-						<p>Selection history</p>
 						<div class="fragment">
 							<p>Select stuff using the pointery thing</p>
 							<img src="./img/pointer.png"/>
@@ -181,25 +161,22 @@ setTimeout(function(){
 					<section class="findme">
 						<h2>$electors</h2>
 						<div class="fragment">
-							<pre>
-								<code class="hljs" data-trim>
-$('section'); // Returns THE FIRST section element in the document
-								</code>
-							</pre>
+<pre data-trim><code class="hljs javascript" data-trim>
+$('section');
+// Returns THE FIRST section element in the document
+</code></pre>
 						</div>
 						<div class="fragment">
-							<pre>
-								<code class="hljs" data-trim>
-$$('code'); // Returns ALL the code elements in the document
-								</code>
-							</pre>
+<pre><code class="hljs javascript" data-trim>
+$$('code');
+// Returns ALL the code elements in the document
+</code></pre>
 						</div>
 						<div class="fragment">
-							<pre>
-								<code class="hljs" data-trim>
-$x('html/body/script'); // XPATH!!
-								</code>
-							</pre>
+<pre><code class="hljs javascript" data-trim>
+$x('html/body/script');
+// XPATH!!
+</code></pre>
 						</div>
 					</section>
 					<section>
@@ -216,12 +193,10 @@ $x('html/body/script'); // XPATH!!
 					<section>
 						<h2>inspect(el)</h2>
 						<p>Displays an element in the elements panel, try:</p>
-						<pre>
-							<code class="hljs" data-trim>
+<pre><code class="hljs javascript" data-trim>
 inspect($('body section:first-of-type'));
-							</code>
-						</pre>
-						<p class="fragment"><em>You can use it on heap object or functions too!</em></p>
+</code></pre>
+						<p class="fragment"><em>You can use it on heap objects or functions too!</em></p>
 					</section>
 					<section>
 						<h2>debug(function)</h2>
@@ -230,22 +205,18 @@ inspect($('body section:first-of-type'));
 					<section>
 						<h2>monitor(function)</h2>
 						<p>Logs function arguments on call, try the following:</p>
-						<pre>
-							<code class="hljs" data-trim>
+<pre><code class="hljs javascript" data-trim>
 monitor(ragbag.noop);
 ragbag.noop('this', 'that', 'the other');
-							</code>
-						</pre>
+</code></pre>
 						<p class="fragment"><em>Customers who bought monitor() also bought unmonitor()</em></p>
 					</section>
 					<section>
 						<h2>monitorEvents(object[, events])</h2>
 						<p>Logs events on an object (normally a DOM element)</p>
-						<pre>
-							<code class="hljs" data-trim>
+<pre><code class="hljs javascript" data-trim>
 monitorEvents(window.document.body, 'contextmenu');
-							</code>
-						</pre>
+</code></pre>
 						<p class="fragment"><em>Customers who bought monitorEvents() also bought unmonitorEvents()</em></p>
 					</section>
 				</section>
@@ -316,7 +287,6 @@ monitorEvents(window.document.body, 'contextmenu');
 <!-- Endnote -->
 				<section>
 					<section>
-						<h1>Thanks</h1>
 						<a href="https://www.neontribe.co.uk"><img src="./img/neontribe_logo.png" style="border:none; background: transparent;" alt="Neontribe Logo - looks like a bug, or a bison, depending on your perspective"/></a>
 						<h2>Anthony || Rob || Rupert</h2>
 						<h2>@neontribe.co.uk</h2>
@@ -338,8 +308,8 @@ monitorEvents(window.document.body, 'contextmenu');
 				progress: true,
 				history: true,
 				center: true,
-				width: '95%',
-				height: '80%',
+				width: '100%',
+				height: '100%',
 
 				transition: 'slide', // none/fade/slide/convex/concave/zoom
 
