@@ -2,6 +2,8 @@ var http = require('http');
 var url = require('url');
 var fs = require('fs');
 
+var API = require('./api');
+
 var config = require('./package.json').todo;
 var port = config.port || 9898;
 
@@ -36,6 +38,8 @@ function closeWithStatic(path, res) {
 	res.end(file);
 }
 
+var api = new API(config.dbPath);
+
 var server = http.createServer(function(req, res) {
 	var requested = url.parse(req.url);
 	var path = requested.path === '/' ? '/index.html' : requested.path;
@@ -45,8 +49,11 @@ var server = http.createServer(function(req, res) {
 
 	// api paths?
 	if (path.startsWith('/api')) {
-		return (function doSomethingCool() {})();
+		return api.hook(path.replace(/^\/api/, ''), req, res);
 	}
+
+	res.writeHead(404, 'not found');
+	res.end();
 });
 
 server.listen(port, function() {
