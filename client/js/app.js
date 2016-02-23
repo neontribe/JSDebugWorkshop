@@ -8,8 +8,7 @@
      * @param {string} name The name of your new to do list.
      */
     function Todo(name) {
-        //cache buster
-        this.storage = new app.Store(name + Date.now());
+        this.storage = new app.Store(name);
         this.model = new app.Model(this.storage);
         this.template = new app.Template();
         this.view = new app.View(this.template);
