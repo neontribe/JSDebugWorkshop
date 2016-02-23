@@ -9,8 +9,6 @@
      */
     function Todo(name) {
         this.storage = new app.Store(name);
-        // clear away localStorage values (unhelpful for this debugging workshop)
-        this.storage.drop(window.noop || function(){});
         this.model = new app.Model(this.storage);
         this.template = new app.Template();
         this.view = new app.View(this.template);

@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/neontribe/JSDebugWorkshop#readme",
   "todo": {
-    "port": 9898
+    "port": 9898,
+    "dbPath": "db.json"
   }
 }
