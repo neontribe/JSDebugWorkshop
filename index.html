@@ -69,20 +69,99 @@ console.log.apply(console, ragbag);
 							</code>
 						</pre>
 					</section>
+					<section data-state="runme">
+						<h2>Alarms!</h2>
+						<pre>
+							<code class="hljs" data-trim>
+console.warn("You'll ignore this");
+console.error("But maybe not this");
+							</code>
+						</pre>
+						<p class="fragment">console.error() comes with a free stack trace!</p>
+					</section>
+					<section data-state="runme">
+						<h2>Stack trace, you say?</h2>
+						<p>If you want one of your own you can use:</p>
+							<pre>
+								<code class="hljs" data-trim>
+function traceMe () {
+	console.trace("My first voluntary stack trace");
+}
+traceMe();
+								</code>
+							</pre>
+						</p>
+					</section>
+					<section data-state="runme">
+						<h2>Tabulating Data</h2>
+						<pre>
+							<code class="hljs" data-trim>
+var items = [
+	{type: 'foo', value: 'baz'},
+	{type: 'bar', value: 1},
+	{type: 'foo', value: null}
+];
+console.table(items);
+							</code>
+						</pre>
+					</section>
+					<section data-state="runme">
+						<h2>Timings</h2>
+						<pre>
+							<code class="hljs" data-trim>
+console.time('My Timer');
+setTimeout(function(){
+	console.timeEnd('My Timer');
+}, 1500);
+							</code>
+						</pre>
+					</section>
 				</section>
+
 
 				<section>
 					<section>
-						<h2>$*</h2>
+						<h1>$*</h1>
+
 					</section>
 					<section>
 						<h2>$0-4</h2>
+						<p>Selection history</p>
+						<div class="fragment">
+							<p>Select stuff using the pointery thing</p>
+							<img src="./img/pointer.png"/>
+						</div>
+						<p class="fragment">Get them in the console with $0 to $4</p>
 					</section>
-					<section>
-						<h2>$$</h2>
+					<section class="findme">
+						<h2>$electors</h2>
+						<div class="fragment">
+							<pre>
+								<code class="hljs" data-trim>
+$('section'); // Returns the first section element in the document
+								</code>
+							</pre>
+						</div>
+						<div class="fragment">
+							<pre>
+								<code class="hljs" data-trim>
+$$('code'); // Returns all the code elements in the document
+								</code>
+							</pre>
+						</div>
+						<div class="fragment">
+							<pre>
+								<code class="hljs" data-trim>
+$x('html/body/script'); // XPATH!!
+								</code>
+							</pre>
+						</div>
+
 					</section>
-					<section>
+					<section data-state="runme">
 						<h2>$_</h2>
+						<p>Access the value of the last executed expression</p>
+						<em class="fragment">Mostly for when you forgot to assign it to a variable...</em>
 					</section>
 				</section>
 			</div>
