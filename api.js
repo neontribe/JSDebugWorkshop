@@ -58,7 +58,7 @@ function API(dbPath) {
 API.prototype.respondWithJSON = function respondWithJSON(res, data, statusOverride, headerOverrides) {
 	var json = JSON.stringify(data, null, DEV ? '\t' : '');
 
-	this.respond(res, json, statusOverride, extend({
+	this.respond(res, JSON.stringify(json), statusOverride, extend({
 		'Content-Type': 'application/json'
 	}, headerOverrides));
 };

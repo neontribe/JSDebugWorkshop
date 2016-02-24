@@ -189,7 +189,13 @@ Store.prototype.update = function update(id, newData, callback) {
 		}
 		var cloned = clone(newData);
 		cloned.id = id;
-		this._insert(cloned, cb);
+		this._insert(cloned, function(err) {
+			if (err) {
+				return cb.call(this, err);
+			}
+
+			this.findAll(cb);
+		});
 	});
 };
 

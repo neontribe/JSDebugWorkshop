@@ -95,17 +95,14 @@
 	Store.prototype.save = function (updateData, callback, id) {
 		callback = callback || function () {};
 
-		var findAll = this.findAll.bind(this);
 		// If an ID was actually given, find the item and update each property
 		if (id) {
 			patch('/api/' + id, updateData, function(newDat) {
-				console.log(newDat);
-				findAll(callback);
+				callback(newDat);
 			});
 		} else {
 			put('/api', updateData, function(newDat) {
-				console.log(newDat);
-				findAll(callback);
+				callback(newDat);
 			});
 		}
 	};
