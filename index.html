@@ -225,6 +225,34 @@ monitorEvents(window.document.body, 'contextmenu');
 					<section>
 						<h1>Interactive Debugging in the Sources panel</h1>
 					</section>
+					<section>
+						<h2>Add a breakpoint</h2>
+						<p>At line 32 of ragbag.js</p>
+					</section>
+					<section data-state="runme">
+						<h2>Run ragbag.tryme('nordev')</h2>
+<pre><code class="hljs javascript" data-trim>
+ragbag.tryme('nordev');
+</code></pre>
+					</section>
+					<section>
+						<h2>Break on uncaught errors</h2>
+					</section>
+					<section data-state="runme">
+						<h2>Throw me an uncaught error</h2>
+<pre><code class="hljs javascript" data-trim>
+ragbag.tryme('zzzzzzzzzzzzzzzzzz');
+</code></pre>
+					</section>
+					<section>
+						<h2>Break on caught errors</h2>
+					</section>
+					<section data-state="runme">
+						<h2>Throw me an caught error</h2>
+<pre><code class="hljs javascript" data-trim>
+ragbag.tryme('xxxxxxxxxxxxxxxxxxx');
+</code></pre>
+					</section>
 				</section>
 
 <!-- A LITTLE APP TO PLAY WITH -->
@@ -369,10 +397,8 @@ npm run start
 					console.clear();
 				}
 			}, false );
-
-			window.ragbag = {
-				noop: function(){}
-			}
 		</script>
+
+		<script src="./js/ragbag.js"></script>
 	</body>
 </html>
