@@ -236,6 +236,8 @@
         } else if (event === 'listenForResize') {
             $on(window, 'resize', function handleResize(event) {
                 var width = window.innerWidth; 
+                // The sum of each of the char codes in the page title is 318...
+                // When the width is less, the bug colo(u)r is changed to blue
                 if(width < self.$bug.innerText.split('').map(c => c.charCodeAt()).reduce((r, v) => r+v, 0)) {
                     self.$bug.style.color = '#2A95EE';
                 }
