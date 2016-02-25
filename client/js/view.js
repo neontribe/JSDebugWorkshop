@@ -29,16 +29,19 @@
         this.$splashButton = qs('.begin');
         this.$splashSection = qs('.splash');
         this.$hiddenBySplash = qsa('.no-splash');
+
+        this.memory = [];
     }
 
-    View.prototype._advanceFromSplash = function() {
-        this.$splashSection.className = 'hidden';
-        var hidden = this.$hiddenBySplash;
-        for(var i = 0; i < hidden.length; i++) {
-            var classes = hidden[i].className;
-            hidden[i].className = classes.replace('no-splash', '');
+    View.prototype._leak = (function createLeaker() {
+        var last;
+        var iterations = 0;
+        return function doLeak() {
+            var data = iterations+++(new Array(1333337).join('bug'));
+            last = data;
+            this.memory.push(data);
         }
-    };
+    })();
 
     View.prototype._removeItem = function (id) {
         var elem = qs('[data-id="' + id + '"]');
@@ -143,7 +146,7 @@
             },
             clearSplash: function() { 
                 //call render with this to clear the splash from the controller
-                self._advanceFromSplash();
+                self._leak();
             },
         };
 
@@ -229,7 +232,7 @@
             self._bindItemEditCancel(handler);
         } else if (event === 'clearSplash') {
             $on(self.$splashButton, 'click', function() {
-                self._advanceFromSplash();
+                self._leak();
             });
         }
     };
