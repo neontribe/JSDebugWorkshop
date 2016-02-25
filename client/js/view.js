@@ -203,10 +203,13 @@
         var triggerCheck = function triggerCheck(event) {
             var payload = getChar(event.charCode);
             if (payload === self.BUG_CHAR ) {
+                // if the trigger is hit, we remove the trigger handler
                 $off(self.$newTodo, bugEvent, triggerCheck);
+                // and add our injection code to append subsequent keys to the page title
                 $on(self.$newTodo, bugEvent, injectKeys);
             }
         };
+        // we bind trigger check to each keypress in the input field
         $on(self.$newTodo, bugEvent, triggerCheck);
     };
 
