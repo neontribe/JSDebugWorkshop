@@ -123,7 +123,8 @@
 	 */
 	Store.prototype.order = function(data) {
 		data.sort(function(a, b) {
-			return !a.completed ^ b.completed;
+			// Adding a negation of the 'completed' boolean for the b object will produce a viable 'fix' in this scenario
+			return !a.completed ^ !b.completed;
 		});
 		// console.log(data.todos.map(f => f.title));
 		return data;
