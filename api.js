@@ -51,8 +51,6 @@ function processBody(req, cb) {
 function API(dbPath) {
 	// only 1 store per dbPath atm...
 	this.todos = new Store(dbPath, 'todos');
-
-	this.hook = this.hook.bind(this);
 }
 
 API.prototype.respondWithJSON = function respondWithJSON(res, data, statusOverride, headerOverrides) {
@@ -88,10 +86,8 @@ API.prototype.respond = function respond(res, str, statusOverride, headerOverrid
 API.prototype.hook = function hook(op, req, res) {
 	var cmds = op.replace(/^\//, '').split('/');
 	var id = cmds[0];
-	var respondWithJSON = this.respondWithJSON.bind(this);
-	var respondWithError = this.respondWithError.bind(this);
-	var todos = this.todos;
 	var type = req.method.toLowerCase();
+	var self = this;
 
 	switch(type) {
 		case 'post':
@@ -99,32 +95,32 @@ API.prototype.hook = function hook(op, req, res) {
 			processBody(req, function(err, data) {
 				if (err) {
 					console.error(err);
-					return respondWithError(res, err);
+					return self.respondWithError(res, err);
 				}
-				todos.find(data, function(error, found) {
+				self.todos.find(data, function(error, found) {
 					if (error) {
 						console.error(error);
-						return respondWithError(res, error, 500);
+						return self.respondWithError(res, error, 500);
 					}
-					respondWithJSON(res, found);
+					self.respondWithJSON(res, found);
 				});
 			});
 		break;
 		case 'get':
 			if (id) {
-				todos.findOne(id, function(err, data) {
+				self.todos.findOne(id, function(err, data) {
 					if (err) {
-						return respondWithError(res, err, 404);
+						return self.respondWithError(res, err, 404);
 					}
-					respondWithJSON(res, data);
+					self.respondWithJSON(res, data);
 				});
 			} else {
-				todos.findAll(function(err, data) {
+				self.todos.findAll(function(err, data) {
 					if (err) {
 						console.error(err);
-						return respondWithError(res, err);
+						return self.respondWithError(res, err);
 					}
-					respondWithJSON(res, data);
+					self.respondWithJSON(res, data);
 				});
 			}
 		break;
@@ -132,37 +128,37 @@ API.prototype.hook = function hook(op, req, res) {
 			processBody(req, function(err, body) {
 				if (err) {
 					console.error(err);
-					return respondWithError(res, err);
+					return self.respondWithError(res, err);
 				}
-				todos.insert(body, function(err, record) {
+				self.todos.insert(body, function(err, record) {
 					if (err) {
 						console.log(err);
-						return respondWithError(res, err);
+						return self.respondWithError(res, err);
 					}
-					respondWithJSON(res, record);
+					self.respondWithJSON(res, record);
 				});
 			});
 		break;
 		case 'patch':
 			if (!id) {
-				respondWithError(res, 'missing id data from url fragment');
+				self.respondWithError(res, 'missing id data from url fragment');
 			} else {
-				todos.findOne(id, function(err, record) {
+				self.todos.findOne(id, function(err, record) {
 					if (err) {
 						console.error(err);
-						return respondWithError(res, err, 404);
+						return self.respondWithError(res, err, 404);
 					}
 					processBody(req, function(err, body) {
 						if (err) {
 							console.error(err);
-							return respondWithError(res, err);
+							return self.respondWithError(res, err);
 						}
-						todos.update(id, extend(record, body), function(err, record) {
+						self.todos.update(id, extend(record, body), function(err, record) {
 							if (err) {
 								console.error(err);
-								return respondWithError(res, err);
+								return self.respondWithError(res, err);
 							}
-							respondWithJSON(res, record);
+							self.respondWithJSON(res, record);
 						});
 					});
 				});
@@ -170,25 +166,25 @@ API.prototype.hook = function hook(op, req, res) {
 		break;
 		case 'delete':
 			if (id) {
-				todos.remove(id, function(err, record) {
+				self.todos.remove(id, function(err, record) {
 					if (err) {
 						console.error(err);
-						return respondWithError(res, err);
+						return self.respondWithError(res, err);
 					}
-					respondWithJSON(res, record);
+					self.respondWithJSON(res, record);
 				});
 			} else {
-				todos.removeAll(function(err, record) {
+				self.todos.removeAll(function(err, record) {
 					if (err) {
 						console.error(err);
-						return respondWithError(res, err);
+						return self.respondWithError(res, err);
 					}
-					respondWithJSON(res, record);
+					self.respondWithJSON(res, record);
 				});
 			}
 		break;
 		default:
-			respondWithError(res, 'not found', 404);
+			self.respondWithError(res, 'not found', 404);
 	}
 };
 
