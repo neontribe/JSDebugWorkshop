@@ -10,7 +10,7 @@ We'll cover different uses of the console, some of which will be of special inte
 
 As we progress we'll explore how to use the same features to interact with Javascript running in node, we'll uncover some different approaches to narrowing down your bug hunt using the profiling tools and we'll peer into the murky depths where memory leaks live.
 
-Depending on time and interest we may also find ourselves covering topics such as attaching debuggers to remote environments, post-mortem debugging, the use of HAR files in diagnosing problems in browser to server communications and specialized debugging tools for specific frameworks.
+Depending on time and interest we may also find ourselves covering topics such as attaching debuggers to remote environments, the use of HAR files in diagnosing problems in browser to server communications, and specialized debugging tools for specific frameworks.
 
 ## Caveat
 
