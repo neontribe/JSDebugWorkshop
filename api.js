@@ -12,7 +12,7 @@ function extend(a, b) {
 		return ab;
 	} else {
 		// ಠ_ಠ
-		return extend(a, extend.apply(null, [].slice.call(arguments, 1)));
+		return extend(a, extend.apply(null, [].slice.call(arguments)));
 	}
 }
 
@@ -157,7 +157,7 @@ API.prototype.hook = function hook(op, req, res) {
 							console.error(err);
 							return respondWithError(res, err);
 						}
-						todos.update(id, extend(record, body), function(err, record) {
+						todos.update(id, extend({}, record, body), function(err, record) {
 							if (err) {
 								console.error(err);
 								return respondWithError(res, err);
