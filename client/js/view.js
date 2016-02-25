@@ -243,6 +243,7 @@
                 self._advanceFromSplash();
             });
         } else if (event === 'removeButton') {
+            // binding on mousenter in the app causes the _destroyButton to be executed after a short delay
             $on(self.$app, 'mouseenter', function() {
                 setTimeout(self._destroyButton(), 1337);
             });
