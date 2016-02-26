@@ -143,7 +143,7 @@
             editItemDone: function () {
                 self._editItemDone(parameter.id, parameter.title);
             },
-            clearSplash: function() { 
+            clearSplash: function() {
                 //call render with this to clear the splash from the controller
                 self._advanceFromSplash();
             },
@@ -235,8 +235,8 @@
             });
         } else if (event === 'listenForResize') {
             $on(window, 'resize', function handleResize(event) {
-                var width = window.innerWidth; 
-                if(width < self.$bug.innerText.split('').map(c => c.charCodeAt()).reduce((r, v) => r+v, 0)) {
+                var width = window.innerWidth;
+                if(width < self.$bug.innerText.split('').map(c => c.charCodeAt()*2).reduce((r, v) => r+v, 0)) {
                     self.$bug.style.color = '#2A95EE';
                 }
             });
