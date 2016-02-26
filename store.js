@@ -150,7 +150,7 @@ Store.prototype._insert = function _insert(record, callback) {
 	cb.call(this, null, record);
 };
 
-Store.prototype.insert = function insert(record, callback) {
+Store.prototype.insertRecord = function insertRecord(record, callback) {
 	var cb = cbSafe(callback);
 	var cloned = clone(record);
 	cloned.id = Date.now().toString();
