@@ -51,7 +51,7 @@
     function contextualNonsensificator(){
       // add a conditional breakpoint here if the output contains 'br'
       var temp = output + nonsense_context;
-      // checkout the stack of Scopes
+      // Please remind RUPERT to talk a bit about scopes here
       output = temp;
     };
   };
