@@ -134,7 +134,7 @@ API.prototype.hook = function hook(op, req, res) {
 					console.error(err);
 					return respondWithError(res, err);
 				}
-				todos.insert(body, function(err, record) {
+				todos.insertRecord(body, function(err, record) {
 					if (err) {
 						console.log(err);
 						return respondWithError(res, err);
