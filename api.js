@@ -12,7 +12,7 @@ function extend(a, b) {
 		return ab;
 	} else {
 		// ಠ_ಠ
-		return extend(a, extend.apply(null, [].slice.call(arguments)));
+		return extend(a, extend.apply(null, [].slice.call(arguments, 1)));
 	}
 }
 
